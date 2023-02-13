@@ -1,0 +1,37 @@
+
+# List of generated routes for better navigation:
+# new_sylius_brand_admin_api_brand_index
+# new_sylius_brand_admin_api_brand_create
+# new_sylius_brand_admin_api_brand_update
+# new_sylius_brand_admin_api_brand_show
+# new_sylius_brand_admin_api_brand_delete
+# new_sylius_brand_admin_api_brand:
+#     resource: |
+#         identifier: code
+#         alias: new_sylius_brand.brand
+#         section: admin_api
+#         except: ['bulkDelete']
+#         grid: new_sylius_brand_admin_api_brand
+#         form: new\SyliusBrandPlugin\Form\Type\BrandType
+#         serialization_version: $version
+#         criteria:
+#             code: $code
+#     type: sylius.resource_api
+
+new_sylius_brand_admin_api_brand_image:
+    resource: "@NewSyliusBrandPlugin/config/routes/admin_api/brand_image.yaml"
+    prefix: /brands/{code}
+
+new_sylius_brand_admin_api_brand_product_index:
+    path: /brands/{code}/products/
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.product:indexAction
+        _sylius:
+            serialization_version: $version
+            section: admin_api
+            serialization_groups: [Default]
+            repository:
+                method: createPaginatorForBrand
+                arguments:
+                    - expr:notFoundOnNull(service('new_sylius_brand.repository.brand').findOneByCode($code))

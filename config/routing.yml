@@ -1,0 +1,14 @@
+# Delete these routes and define your own shop routes here
+new_sylius_brand_shop:
+    resource: "@NewSyliusBrandPlugin/config/routes/shop.yaml"
+    prefix: /{_locale}
+    requirements:
+        _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
+
+new_sylius_brand_admin:
+    resource: "@NewSyliusBrandPlugin/config/routes/admin.yaml"
+    prefix: /admin
+
+new_sylius_brand_admin_api:
+    resource: "@NewSyliusBrandPlugin/config/routes/admin_api.yaml"
+    prefix: /api/v{version}
